@@ -1,0 +1,20 @@
+.button {
+	color: #fff;
+	border-radius: 24px;
+	padding: 6px 13px;
+	font-weight: 600;
+	font-size: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	background-color: #ed4d8b;
+
+	&.tomorrow {
+		opacity: 0.5;
+	}
+
+	&.inactive {
+		opacity: 0.2;
+	}
+}

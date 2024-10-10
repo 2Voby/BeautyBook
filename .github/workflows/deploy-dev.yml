@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+
+      - name: Define deployment environment variables
+        run: |
+          echo "DEPLOY_SERVER=${{ secrets.DEPLOY_SERVER }}" >> $GITHUB_ENV
+          echo "DEPLOY_USER=${{ secrets.DEPLOY_USER }}" >> $GITHUB_ENV
+
+      - name: Test SSH connection
+        run: |
+          ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} "echo 'SSH connection successful'"
+
+      - name: Copy files to server
+        run: |
+          rsync -avz --delete --exclude 'static' --exclude 'node_modules' --exclude '.env' -e "ssh -o StrictHostKeyChecking=no" ./ ${DEPLOY_USER}@${DEPLOY_SERVER}:/root/frontend/dev
+
+      - name: Install dependencies and restart PM2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_SERVER} << 'EOF'
+          cd /root/frontend/dev
+          npm install
+          pm2 restart front-test || pm2 start "npm run start" --name "front-test"
+          EOF

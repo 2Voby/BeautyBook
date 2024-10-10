@@ -1,0 +1,52 @@
+.category {
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.25);
+	&:not(:last-child) {
+		margin-bottom: 15px;
+	}
+	.head {
+		background-color: #ed4d8b;
+		padding: 10px 15px;
+		h3 {
+			font-size: 18px;
+			font-weight: 600;
+			color: #fff;
+		}
+	}
+
+	.services {
+		.item {
+			display: flex;
+			justify-content: space-between;
+			gap: 35px;
+			font-size: 16px;
+			padding: 10px 10px;
+			&:nth-child(2n) {
+				background-color: #f2f2f2;
+			}
+
+			&__name {
+				max-width: 220px;
+				font-weight: 500;
+			}
+
+			&__price-and-duration {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 5px;
+				.item__price {
+					&::after {
+						padding-left: 2px;
+						content: "₴";
+					}
+				}
+
+				.item__duration {
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}

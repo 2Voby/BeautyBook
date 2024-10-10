@@ -1,0 +1,89 @@
+@use "../../styles/variables";
+
+.playersList {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	color: #fff;
+	.playersListRow {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px;
+		border-radius: 24px;
+		background: variables.$light;
+		border: 1px solid #fff;
+
+		.name {
+			font-weight: 600;
+			font-size: 16px;
+		}
+
+		.position {
+			color: variables.$red;
+			font-size: 14px;
+			img {
+				width: 0;
+				height: 0;
+			}
+		}
+
+		.info {
+			display: flex;
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		div {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			.money {
+				font-size: 15px;
+				margin-left: -5px;
+			}
+		}
+	}
+
+	&.leaderboard {
+		.playersListRow {
+			.position {
+				img {
+					width: 16px;
+					height: 16px;
+					margin-right: 5px;
+				}
+			}
+			&:nth-child(1) {
+				border-left: 5px solid rgba(255, 215, 0, 1);
+				border-right: 5px solid rgba(255, 215, 0, 1);
+				.position {
+					color: rgba(255, 215, 0, 1);
+				}
+			}
+			&:nth-child(2) {
+				border-left: 5px solid rgba(175, 175, 175, 1);
+				border-right: 5px solid rgba(175, 175, 175, 1);
+				.position {
+					color: rgba(175, 175, 175, 1);
+				}
+			}
+			&:nth-child(3) {
+				border-left: 5px solid rgba(253, 193, 103, 1);
+				border-right: 5px solid rgba(253, 193, 103, 1);
+				.position {
+					color: rgba(253, 193, 103, 1);
+				}
+			}
+		}
+	}
+}
+
+.none {
+  display: none;
+}
+
+.money {
+	color: variables.$red;
+	font-weight: 600;
+}
